@@ -1,3 +1,3 @@
-require_relative 'acme/bleach'
+load 'acme/bleach.rb'
 __END__
 puts 'Hello.'
