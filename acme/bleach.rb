@@ -6,13 +6,12 @@ def brighten c;[c.tr(" \t",'01')].pack 'b*';end
 f=DATA
 fn=f.path
 d=f.read
-f.rewind
-c=f.read
 if d=~/\A[ \t]*\z/
-  eval brighten c.split(/^__END__\n/,2)[1]
+  eval brighten d
 else
   require 'fileutils'
   FileUtils.cp fn,fn+'.bak'
-  c=c.split(/^(__END__\n)/,2).tap{|c|break(c[0..1]<< whiten(c[2])).join}
+  f.rewind
+  c=f.read.split(/^(__END__\n)/,2).tap{|c|break(c[0..1]<< whiten(c[2])).join}
   open(fn,'w:utf-8'){|f|f.write c}
 end
